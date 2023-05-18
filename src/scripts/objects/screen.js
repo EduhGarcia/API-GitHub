@@ -15,17 +15,20 @@ const screen = {
     
         let repositoriesItens = ''
         user.repositories.forEach(repos => {
-            console.log(repos)
+            let informationRepos = `<div class="item-repositorie">🍴 ${repos.forks}</div>
+                                    <div class="item-repositorie">⭐ ${repos.stargazers_count}</div>
+                                    <div class="item-repositorie">👀 ${repos.watchers}</div>`
+
+            if (repos.language !== null) informationRepos +=`<div class="item-repositorie">👩‍💻 ${repos.language}</div>`
+
             repositoriesItens += `<li>
                                     <a href="${repos.html_url}" target="_blank">${repos.name}
                                     <div class="info-repositories">
-                                        <div class="item-repositorie">🍴 ${repos.forks}</div>
-                                        <div class="item-repositorie">⭐ ${repos.stargazers_count}</div>
-                                        <div class="item-repositorie">👀 ${repos.watchers}</div>
-                                        <div class="item-repositorie">👩‍💻 ${repos.language}</div>
+                                        ${informationRepos}
                                     </div></a>
                                   </li>`})
 
+                                  
         if(user.repositories.length > 0){
             this.userProfile.innerHTML += `<div class="repositories section">
                                             <h2>Repositórios</h2>
@@ -39,6 +42,7 @@ const screen = {
                 eventItens += `<li><span>${even.repo.name}</span> - Esse repositório não possui mensagem</li>`
                 return
             }
+            
             eventItens += `<li><span>${even.repo.name}</span> - ${even.payload.commits[0].message}</li>`
             
             
