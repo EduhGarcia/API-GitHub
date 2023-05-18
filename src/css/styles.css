@@ -99,7 +99,7 @@ main {
 }
 
 .container .profile-data .info .data{
-  padding: 40px;
+  padding: 40px 15px 40px 40px;
   width: 50%;
 }
 
@@ -119,6 +119,35 @@ main {
   font-size: 15px;  
   font-weight: 400;
   line-height: 23px;
+}
+
+.data ul{
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.data .social{
+  font-size: 15px;
+  background-color: #ccc;
+  border-radius: 10px;
+  padding: 13px 7px;
+  align-items: center;
+}
+
+.eventTitle h2{
+  font-size: 30px;
+  margin-bottom: 50px;
+}
+
+.eventTitle ul li{
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.eventTitle span{
+  font-weight: 700;
 }
 
 /* REPOSITORIES */
@@ -150,6 +179,20 @@ main {
 
 .container .profile-data.hide{
   display: none;
+}
+
+.info-repositories{
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.info-repositories .item-repositorie{
+  background-color: darkorchid;
+  border-radius: 4px;
+  padding: 6px;
+  font-size: 14px;
+  color: #fff;
 }
 
 @media (max-width: 1280px) {
@@ -193,3 +236,5 @@ main {
     padding: 0;
   }
 }
+
+
