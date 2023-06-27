@@ -14,18 +14,29 @@ const screen = {
                                       </div>`
     
         let repositoriesItens = ''
+        
         user.repositories.forEach(repos => {
-            let informationRepos = `<div class="item-repositorie">🍴 ${repos.forks}</div>
-                                    <div class="item-repositorie">⭐ ${repos.stargazers_count}</div>
-                                    <div class="item-repositorie">👀 ${repos.watchers}</div>`
+            let starRepositorie = ''
+            let forksRepositorie = ''
+            let languageRepositorie = ''
 
-            if (repos.language !== null) informationRepos +=`<div class="item-repositorie">👩‍💻 ${repos.language}</div>`
+            repos.fork === false || repos.fork === 0 ? forksRepositorie = 'Sem forks' : forksRepositorie = `🍴 ${repos.forks}` 
+
+            repos.stargazers_count === null || repos.stargazers_count === 0 ? starRepositorie = 'Sem estrelas' : starRepositorie = `⭐ ${repos.stargazers_count}`
+
+            repos.language === null || repos.language === 0 ? languageRepositorie = 'Nenhuma linguagem' : languageRepositorie = `👩‍💻 ${repos.language}`
+
+            let informationRepos = `<div class="item-repositorie">${forksRepositorie}</div>
+                                <div class="item-repositorie">${starRepositorie}</div>
+                                <div class="item-repositorie">👀 ${repos.watchers}</div>
+                                <div class="item-repositorie">${languageRepositorie}</div>`
 
             repositoriesItens += `<li>
                                     <a href="${repos.html_url}" target="_blank">${repos.name}
-                                    <div class="info-repositories">
-                                        ${informationRepos}
-                                    </div></a>
+                                        <div class="info-repositories">
+                                            ${informationRepos}
+                                        </div>
+                                    </a>
                                   </li>`})
 
                                   
@@ -37,13 +48,17 @@ const screen = {
         }
 
         let eventItens = ''
-        user.events.forEach((even) => {
-            if(even.payload.commits === undefined){
-                eventItens += `<li><span>${even.repo.name}</span> - Esse repositório não possui mensagem</li>`
-                return
+        user.events.forEach(element => {
+            
+            if(element.type === "PushEvent"){
+                eventItens += `<li><span>${element.repo.name}</span> 
+                -- ${element.payload.commits[0].message}</li>`
+            } else {
+                eventItens += `<li><span>${element.repo.name}</span> 
+                -- ${element.payload.ref_type}</li>`
             }
             
-            eventItens += `<li><span>${even.repo.name}</span> - ${even.payload.commits[0].message}</li>`
+            
             
             
         })
